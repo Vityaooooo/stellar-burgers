@@ -4,5 +4,5 @@ import { getOrdersApi } from '@api';
 
 export const getOrders = createAsyncThunk<Array<TOrder>, undefined>(
   'orders/getOrders',
-  async () => getOrdersApi()
+  async () => (await getOrdersApi()).orders
 );

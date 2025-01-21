@@ -4,5 +4,5 @@ import { getFeedsApi } from '@api';
 
 export const getFeedsOrder = createAsyncThunk<TOrdersData, undefined>(
   'feed/getOrders',
-  async () => getFeedsApi().then((data) => data)
+  getFeedsApi
 );
