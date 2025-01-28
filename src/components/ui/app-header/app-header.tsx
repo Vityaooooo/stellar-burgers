@@ -14,7 +14,7 @@ export const AppHeaderUI: FC<TAppHeaderUIProps> = ({
   userName,
   locationPath
 }) => (
-  <header className={styles.header}>
+  <header className={styles.header} data-cy='app-header'>
     <nav className={`${styles.menu} p-4`}>
       <div className={styles.menu_part_left}>
         <Link

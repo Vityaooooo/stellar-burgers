@@ -1,0 +1,15 @@
+{
+  "statusCode": 200,
+  "ok": true,
+  "success": true,
+  "name": "mock-name",
+  "order": {
+    "_id": "mock-id",
+    "status": "done", 
+    "name": "mock-name",
+    "createdAt": "2021-08-08T14:48:00.000Z",
+    "updatedAt": "2021-08-08T14:48:00.000Z",
+    "number": "12345",
+    "ingredients": [1, 2, 3, 1]
+  }
+}
