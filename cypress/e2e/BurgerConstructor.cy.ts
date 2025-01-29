@@ -2,6 +2,7 @@
 declare namespace Cypress {
   interface Chainable {
     addIngredient(ingredientReg: RegExp): void;
+    login(): void;
   }
 }
 
@@ -18,9 +19,27 @@ describe('Burger Constructor Tests', () => {
   const constructorBunDataAttribute = 'constructor-bun';
 
   Cypress.Commands.add('addIngredient', (ingredientReg) => {
-    cy.get(`[data-cy="${ingredientDataAttribute}"]`).contains('p', ingredientReg).first().parent().parents(`[data-cy="${ingredientDataAttribute}"]`).as('ingredient');
+    cy.get(`[data-cy="${ingredientDataAttribute}"]`).contains(ingredientReg).first().parents(`[data-cy="${ingredientDataAttribute}"]`).as('ingredient');
     cy.get('@ingredient').find('button').click();
-  })
+  });
+
+  Cypress.Commands.add('login', () => {
+    cy.visit(URL + 'login');
+
+    cy.intercept('POST', '/api/auth/login', { fixture: 'user.json' }).as('loginRequest');
+  
+    cy.get('[data-cy="email-input').type('testuser@example.com');
+  
+    cy.get('[data-cy="password-input"]').type('password123');
+  
+    cy.get('[data-cy="log-in"]').click();
+    
+    cy.wait('@loginRequest').then(({ response }) => {
+      const { accessToken, refreshToken } = response?.body;
+      cy.setCookie('accessToken', accessToken);
+      window.localStorage.setItem('refreshToken', refreshToken);
+    });
+  });
 
   beforeEach(() => {
     cy.visit(URL);
@@ -66,22 +85,8 @@ describe('Burger Constructor Tests', () => {
     });
 
     it('should log in, add ingredients to the constructor, and place an order', () => {
-      cy.visit(URL + 'login');
-    
-      cy.get('[data-cy="email-input-container"]').find('input').type('testuser@example.com');
-    
-      cy.get('[data-cy="password-input-container"]').find('input').type('password123');
-    
-      cy.intercept('POST', '/api/auth/login', { fixture: 'user.json' }).as('loginRequest');
-    
-      cy.get('[data-cy="login-button-container"]').find('button').click();
-    
-      cy.wait('@loginRequest').then(({ response }) => {
-        const { accessToken, refreshToken } = response?.body;
-        cy.setCookie('accessToken', accessToken);
-        window.localStorage.setItem('refreshToken', refreshToken);
-      });
-  
+      cy.login();
+      
       cy.getCookie('accessToken').should('have.property', 'value', 'mockAccessToken');
       cy.window().then((win) => {
         expect(win.localStorage.getItem('refreshToken')).to.eq('mockRefreshToken');
@@ -95,10 +100,9 @@ describe('Burger Constructor Tests', () => {
 
       cy.addIngredient(sauseReg);
     
-    
       cy.get('[data-cy="constructor-main"]').children().should('have.length', 2);
     
-      cy.contains('button', 'Оформить заказ').click();
+      cy.get('[data-cy="make-order"]').click();
     
       cy.wait('@postOrder').then(({ response }) => {
         const orderNumber = response?.body?.order?.number;

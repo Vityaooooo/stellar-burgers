@@ -24,7 +24,7 @@ export const LoginUI: FC<LoginUIProps> = ({
         onSubmit={handleSubmit}
       >
         <>
-          <div className='pb-6' data-cy='email-input-container'>
+          <div className='pb-6'>
             <Input
               type='email'
               placeholder='E-mail'
@@ -33,21 +33,28 @@ export const LoginUI: FC<LoginUIProps> = ({
               name='email'
               error={false}
               errorText=''
+              data-cy='email-input'
               size='default'
             />
           </div>
-          <div className='pb-6' data-cy='password-input-container'>
+          <div className='pb-6'>
             <PasswordInput
               onChange={handleChange}
               value={password}
               name='password'
+              data-cy='password-input'
             />
           </div>
           <div
             className={`pb-6 ${styles.button}`}
             data-cy='login-button-container'
           >
-            <Button type='primary' size='medium' htmlType='submit'>
+            <Button
+              type='primary'
+              size='medium'
+              htmlType='submit'
+              data-cy='log-in'
+            >
               Войти
             </Button>
           </div>
