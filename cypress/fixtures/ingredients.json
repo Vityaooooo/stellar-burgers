@@ -1,0 +1,47 @@
+{
+  "success": true,
+  "ok": true,
+  "statusCode": 200,
+  "data": [
+    {
+      "_id": "1",
+      "name": "булка",
+      "type": "bun",
+      "proteins": 100,
+      "fat": 100,
+      "carbohydrates": 100,
+      "calories": 100,
+      "price": 100,
+      "image": "mock-image",
+      "image_large": "mock-image-large",
+      "image_mobile": "mock-image-mobile"
+    },
+    {
+      "_id": "2",
+      "name": "котлета",
+      "type": "main",
+      "proteins": 100,
+      "fat": 100,
+      "carbohydrates": 100,
+      "calories": 100,
+      "price": 100,
+      "image": "mock-image",
+      "image_large": "mock-image-large",
+      "image_mobile": "mock-image-mobile"
+    },
+    {
+      "_id": "3",
+      "name": "соус",
+      "type": "sauce",
+      "proteins": 100,
+      "fat": 100,
+      "carbohydrates": 100,
+      "calories": 100,
+      "price": 100,
+      "image": "mock-image",
+      "image_large": "mock-image-large",
+      "image_mobile": "mock-image-mobile"
+    }
+  ]
+
+}

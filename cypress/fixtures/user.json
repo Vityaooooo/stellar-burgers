@@ -1,0 +1,11 @@
+{
+    "refreshToken": "mockRefreshToken",
+    "accessToken": "mockAccessToken",
+    "user": {
+      "name": "mock-name",
+      "email": "mock-email"
+    },
+  "success": true,
+  "ok": true,
+  "statusCode": 200
+}
